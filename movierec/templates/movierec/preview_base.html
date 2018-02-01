@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}IRecommend{% endblock %}</title>
         {% load staticfiles %}
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
@@ -25,7 +27,7 @@
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation -->
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="{% url 'movierec:login' %}">Log In</a>
+            <a class="mdl-navigation__link" href="{% url 'movierec:login_user' %}">Log In</a>
             <a class="mdl-navigation__link" href="{% url 'movierec:register' %}">Sign Up</a>            
         </nav>
         </div>
