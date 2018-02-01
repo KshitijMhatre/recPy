@@ -45,3 +45,11 @@ def register(request):
         "form": form,
     }
     return render(request, 'movierec/register.html', context)
+
+def logout_user(request):
+    logout(request)
+    form = UserForm(request.POST or None)
+    context = {
+        "form": form,
+    }
+    return render(request, 'movierec/login.html', context)
