@@ -2,9 +2,12 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+app_name= 'movierec'
+
 urlpatterns = [
     path('',views.index ,name='movierec'),
-    path('login/',views.login ,name='login'),
+    path('login/',views.login_user ,name='login'),
+    path('register/',views.register ,name='register'),
 
 ]
 
