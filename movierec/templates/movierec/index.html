@@ -6,10 +6,48 @@
 
 {% if result %}
 
-{{result}}
+<div id="result"></div>
+
+<script type="text/javascript">
+    var data = {{ result|safe }} ;
+    //console.log(geodata)  
+    
+
+    if (data.Response!="False"){
+        var html= "";
+        html+="<p>found "+data.totalResults+" matches </p><br>";
+
+        console.log("goes here");
+        data.Search.forEach(function(Object) {
+				/*
+				 * plain style
+				 *
+				 **/
+                 console.log("and here");
+		        html += "<div class ='content-grid mdl-grid' style='margin:10px' >";		        
+		        html += "<div class ='mdl-cell mdl-cell--3-col'>";
+		        html += "<img src = '" + Object.Poster +"' height='200' width='150' style='margin:0px 50px 0px 50px'>";
+		        html += "</div>";
+		        html += "<div class='mdl-cell mdl-cell--6-col'>";
+		        html += "<p><strong>" + Object.Title + "</strong></p> ";
+		        html += "<p> Year: " + Object.Year + "</p> ";
+		        html += "<p> Type: " + Object.Type + "</p> ";
+		        html += "<p> IMDB id: " + Object.imdbID + "</p> ";		        
+		        html += "</div>";
+		        html += "</div><br>";
+		        
+        });
+        
+
+    }
+    $(" #result ").html(html);
+
+</script>
 
 main page after login
 
 {% endif %}
+
+
 
 {% endblock %}

@@ -15,9 +15,10 @@ def index(request):
         if query:
             rest_api ='https://www.omdbapi.com/?apikey=feaa306&s='            
             result = requests.get(rest_api+query)
-            data = result.json()            
+            data = result.json()
+            res = json.dumps(data)
 
-            return render(request, 'movierec/index.html', {'result':data })
+            return render(request, 'movierec/index.html', {'result':res })
         else:
             return render(request, 'movierec/index.html')        
 
