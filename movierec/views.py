@@ -3,6 +3,7 @@ from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .forms import UserForm
+import json,requests
 
 
 # Create your views here.
@@ -10,7 +11,15 @@ def index(request):
     if not request.user.is_authenticated:
         return render(request, 'movierec/preview.html')
     else:
-        return render(request, 'movierec/index.html')
+        query = request.GET.get("q")
+        if query:
+            rest_api ='https://www.omdbapi.com/?apikey=feaa306&s='            
+            result = requests.get(rest_api+query)
+            data = result.json()            
+
+            return render(request, 'movierec/index.html', {'result':data })
+        else:
+            return render(request, 'movierec/index.html')        
 
 def login_user(request):
     if request.method == "POST":
