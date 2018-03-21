@@ -1,1 +1,2 @@
-movierec/static/js/* linguist-vendored
+movierec/static/movierec/js/* linguist-vendored
+handlebars-v4.0.11.js linguist-vendored=false
