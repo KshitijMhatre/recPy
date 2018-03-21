@@ -11,12 +11,16 @@
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script defer src="{% static 'movierec/js/handlebars-v4.0.11.js' %}"></script>
+        
         <link rel="stylesheet" type="text/css" href="{% static 'movierec/style.css' %}"/>
 </head>
 
 
 <!-- Uses a header that scrolls with the text, rather than staying
-  locked at the top -->
+  locked at the top 
+    This page is base for logged in state
+-->
 
 <div class="mdl-layout mdl-js-layout">
     <header class="mdl-layout__header mdl-layout__header--scroll">

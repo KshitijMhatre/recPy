@@ -16,9 +16,9 @@ def index(request):
             rest_api ='https://www.omdbapi.com/?apikey=feaa306&s='            
             result = requests.get(rest_api+query)
             data = result.json()
-            res = json.dumps(data)
 
-            return render(request, 'movierec/index.html', {'result':res })
+
+            return render(request, 'movierec/index.html', {'result':data })
         else:
             return render(request, 'movierec/index.html')        
 
@@ -48,8 +48,7 @@ def register(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                login(request, user)
-                albums = Album.objects.filter(user=request.user)
+                login(request, user)                
                 return render(request, 'movierec/index.html', {})
     context = {
         "form": form,
@@ -63,3 +62,42 @@ def logout_user(request):
         "form": form,
     }
     return render(request, 'movierec/login.html', context)
+
+
+def detail(request):
+    if not request.user.is_authenticated:
+        return render(request, 'movierec/login.html')
+    else:
+        user = request.user
+        mov_id= request.GET.get("mov_id")
+        
+        rest_api ='https://www.omdbapi.com/?apikey=feaa306&i='            
+        result = requests.get(rest_api+mov_id)
+        data = result.json()        
+                
+        return render(request, 'movierec/detail.html', {'data': data, 'user': user})
+
+
+# @login_required
+# @transaction.atomic
+#need to add pages
+def update_profile(request):
+    if not request.user.is_authenticated:
+        return render(request, 'movierec/preview.html')
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, _('Your profile was successfully updated!'))
+            return redirect('settings:profile')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profiles/profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
