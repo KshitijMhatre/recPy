@@ -35,17 +35,18 @@
         <nav class="mdl-navigation">
 
             <!-- Expandable Textfield -->
-            <form role="search" method="get" action="{% url 'movierec:movierec' %}">
+            <form id='searchbar' role="search" method="POST" action="{% url 'movierec:movierec' %}">
+                {% csrf_token %}
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                     <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
                         <i class="material-icons">search</i>
                     </label>
                     <div class="mdl-textfield__expandable-holder">
-                        <input class="mdl-textfield__input" type="text" id="sample6" name="q" value="{{ request.GET.q }}">
+                        <input class="mdl-textfield__input" type="text" id="sample6" name="q" value="{{ request.POST.q }}">
                         <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
                     </div>
                     </div>
-                </form>
+            </form>
       
 
             <a class="mdl-navigation__link" href="#">link</a>
@@ -61,6 +62,9 @@
     <main class="mdl-layout__content">
         <div class="page-content"><!-- Your content goes here -->
         
+            <div id="search-results">
+
+            </div>
             {% block body %}
 
             {% endblock %}
@@ -129,5 +133,30 @@
     </footer>
 
     </div>
+
+    <script>
+        $(function(){
+            $(document).on('submit','#searchbar',function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    type:"POST",
+                    url:"/movierec/search/",
+                    data:{
+                        'q':$('#sample6').val(),
+                        'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
+                    },
+                    success:searchSuccess,
+                    dataType:'html'
+                });
+            });
+
+        });
+
+        function searchSuccess(data, texStatus, jqXHR){
+            $('#search-results').html(data);
+        }
+    
+    </script>
         
 </html>

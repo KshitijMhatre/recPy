@@ -10,17 +10,8 @@ import json,requests
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'movierec/preview.html')
-    else:
-        query = request.GET.get("q")
-        if query:
-            rest_api ='https://www.omdbapi.com/?apikey=feaa306&s='            
-            result = requests.get(rest_api+query)
-            data = result.json()
-
-
-            return render(request, 'movierec/index.html', {'result':data })
-        else:
-            return render(request, 'movierec/index.html')        
+    else:        
+        return render(request, 'movierec/index.html')        
 
 def login_user(request):
     if request.method == "POST":
@@ -97,7 +88,20 @@ def update_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profiles/profile.html', {
+    return render(request, 'movierec/profile.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+
+def search_movies(request):
+    if request.method== "POST":
+        query = request.POST.get("q")
+        if query:
+            rest_api ='https://www.omdbapi.com/?apikey=feaa306&s='            
+            result = requests.get(rest_api+query)
+            data = result.json()
+
+            return render(request, 'movierec/search_result.html', {'result':data })
+        else:
+            return render(request, 'movierec/search_result.html')
