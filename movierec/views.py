@@ -10,7 +10,7 @@ import json,requests
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'movierec/preview.html')
-    else:        
+    else:                
         return render(request, 'movierec/index.html')        
 
 def login_user(request):
@@ -63,7 +63,7 @@ def detail(request):
         mov_id= request.GET.get("mov_id")
         
         rest_api ='https://www.omdbapi.com/?apikey=feaa306&i='            
-        result = requests.get(rest_api+mov_id)
+        result = requests.get(rest_api+mov_id+'&plot=full')
         data = result.json()        
                 
         return render(request, 'movierec/detail.html', {'data': data, 'user': user})
@@ -105,3 +105,24 @@ def search_movies(request):
             return render(request, 'movierec/search_result.html', {'result':data })
         else:
             return render(request, 'movierec/search_result.html')
+
+
+from recombee_api_client.api_client import RecombeeClient
+from recombee_api_client.api_requests import RecommendItemsToUser
+
+client = RecombeeClient('irecommend','hYlCROCKOH72tcU5Wi72Khd0oILLh84q246kRIf0wlB4UsrQVnYCyWmBJOxk8huj')
+
+
+def recommend_movies(request):
+    if request.method== "POST":
+        uid = request.POST.get("uid")        
+        if uid:
+            recommended= client.send(RecommendItemsToUser(uid ,5)) 
+            data={"recomms":[]}
+            rest_api ='https://www.omdbapi.com/?apikey=feaa306&i='
+            for item in recommended["recomms"]:   
+                result = requests.get(rest_api+'tt'+item["id"])                       
+                data["recomms"].append(result.json())            
+            return render(request, 'movierec/recom_result.html', {'result':data })
+        else:
+            return render(request, 'movierec/recom_result.html')

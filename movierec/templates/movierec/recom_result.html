@@ -1,9 +1,9 @@
-<!--make search result template using handle bars here-->
+<!--make recomendations result template using handle bars here-->
 
 <script id="result-template" type="text/x-handlebars-template">
 	{% verbatim %}
 
-	{{#each Search}}
+	{{#each recomms}}
 	<div class='mdl-cell mdl-cell--6-col'>
 		<div class='demo-card-wide mdl-card mdl-shadow--2dp' style='width: 512px;'>
 		<a href='/movierec/detail/?mov_id={{imdbID}}' style='text-decoration: none'>
@@ -15,7 +15,7 @@
 			{{Year}} Type:{{Type}} IMDB id: {{imdbID}}
 			</div>
 		</div>
-	</div>
+    </div>       
 
 	{{/each}}
 	{% endverbatim %}
@@ -29,12 +29,14 @@
 
     var data= {{result|safe}}
 
+    console.log(data);
+
     function createHTMl(resData){
         var rawtemplate = $('#result-template').html();
         var compiledTemplate = Handlebars.compile(rawtemplate);
         var generatedTemplate = compiledTemplate(resData);
 
-        $('#resultContainer').html(generatedTemplate);
+        $('#recomContainer').html(generatedTemplate);
     }
 
     createHTMl(data);
@@ -43,6 +45,6 @@
 
 {% endif %}
 
-<div id= 'resultContainer' >
+<div id= 'recomContainer' >
 
 </div>
