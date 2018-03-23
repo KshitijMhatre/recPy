@@ -8,7 +8,7 @@
 </div>
 
 <script>
-    $(function(){
+    function fun(){
     
         $.ajax({
             type:"POST",
@@ -22,10 +22,12 @@
         });
     
 
-    });
+    };
+
+    fun();
 
     function recomSuccess(data, texStatus, jqXHR){
-        console.log(data);
+        //console.log(data);
         $('#recommendations').html(data);
     }
 

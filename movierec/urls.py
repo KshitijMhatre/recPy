@@ -13,6 +13,8 @@ urlpatterns = [
     path('detail/', views.detail,name='detail'),
     path('search/', views.search_movies),
     path('recommend/', views.recommend_movies),
+    path('rate/', views.rate_movies),
+    path('related/', views.related_movies),
     
 ]
 

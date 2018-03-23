@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .forms import UserForm
 import json,requests
+from .models import Ratings
+#from django.db.models import update_or_create
 
 
 # Create your views here.
@@ -61,12 +63,17 @@ def detail(request):
     else:
         user = request.user
         mov_id= request.GET.get("mov_id")
-        
+        old_rating=0
+        try:                 
+            obj = Ratings.objects.get(uid=user.profile.u_id,imdb=mov_id)
+            old_rating=obj.rating                 
+        except Ratings.DoesNotExist:
+            pass        
         rest_api ='https://www.omdbapi.com/?apikey=feaa306&i='            
         result = requests.get(rest_api+mov_id+'&plot=full')
         data = result.json()        
                 
-        return render(request, 'movierec/detail.html', {'data': data, 'user': user})
+        return render(request, 'movierec/detail.html', {'data': data, 'user': user,'rating':old_rating})
 
 
 # @login_required
@@ -108,7 +115,7 @@ def search_movies(request):
 
 
 from recombee_api_client.api_client import RecombeeClient
-from recombee_api_client.api_requests import RecommendItemsToUser
+from recombee_api_client.api_requests import *
 
 client = RecombeeClient('irecommend','hYlCROCKOH72tcU5Wi72Khd0oILLh84q246kRIf0wlB4UsrQVnYCyWmBJOxk8huj')
 
@@ -126,3 +133,31 @@ def recommend_movies(request):
             return render(request, 'movierec/recom_result.html', {'result':data })
         else:
             return render(request, 'movierec/recom_result.html')
+
+def rate_movies(request):
+    if request.method == "POST":
+        my_uid=request.POST.get("uid")        
+        my_imdb=request.POST.get("imdb")        
+        my_rating=float(request.POST.get("rating"))        
+        obj,created= Ratings.objects.update_or_create(uid=my_uid,imdb=my_imdb,defaults = {'rating':my_rating})        
+        if(created):
+            client.send(AddRating(my_uid,my_imdb,(my_rating-3)/2,cascade_create= True))
+        else:                    
+            client.send(DeleteRating(my_uid,my_imdb))
+            client.send(AddRating(my_uid,my_imdb,(my_rating-3)/2,cascade_create= True))
+    return render(request, 'movierec/recom_result.html')
+
+def related_movies(request):
+    if request.method== "POST":
+        uid = request.POST.get("uid")  
+        imdb = request.POST.get("imdb")      
+        if uid:
+            recommended= client.send(RecommendItemsToItem(imdb ,uid ,5)) 
+            data={"related":[]}
+            rest_api ='https://www.omdbapi.com/?apikey=feaa306&i='
+            for item in recommended["recomms"]:   
+                result = requests.get(rest_api+'tt'+item["id"])                       
+                data["related"].append(result.json())            
+            return render(request, 'movierec/related_result.html', {'result':data })
+        else:
+            return render(request, 'movierec/related_result.html')

@@ -28,3 +28,8 @@ def update_profile(request, user_id):
     user = User.objects.get(pk=user_id)
     user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
     user.save()
+
+class Ratings(models.Model):
+    uid= models.IntegerField()
+    imdb = models.CharField(max_length=30)
+    rating = models.FloatField(default=0.0)

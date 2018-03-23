@@ -1,0 +1,44 @@
+<!--make recomendations result template using handle bars here-->
+
+<script id="relate-template" type="text/x-handlebars-template">
+	{% verbatim %}
+
+	{{#each related}}
+	
+		<a href='/movierec/detail/?mov_id={{imdbID}}' style='text-decoration: none'>
+			
+				<h2 class='mdl-card__title-text'> {{Title}} </h2>			
+		</a>			    
+	{{/each}}
+	{% endverbatim %}
+</script>
+
+
+
+{% if result %}
+
+<script type="text/javascript">
+
+    var data= {{result|safe}}
+
+    //console.log(data);
+
+    function createHTMl(resData){
+        var rawtemplate = $('#relate-template').html();
+        var compiledTemplate = Handlebars.compile(rawtemplate);
+        var generatedTemplate = compiledTemplate(resData);
+
+        $('#relatedContainer').html(generatedTemplate);
+    }
+
+    createHTMl(data);
+
+</script>
+
+
+<div id= 'relatedContainer' >
+
+</div>
+
+{% endif %}
+
