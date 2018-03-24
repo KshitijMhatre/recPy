@@ -7,7 +7,9 @@ from django.dispatch import receiver
 from recombee_api_client.api_client import RecombeeClient
 from recombee_api_client.api_requests import AddUser
 
-client = RecombeeClient('irecommend','hYlCROCKOH72tcU5Wi72Khd0oILLh84q246kRIf0wlB4UsrQVnYCyWmBJOxk8huj')
+from . import myconfig
+
+client = RecombeeClient(myconfig.mov_db,myconfig.token)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

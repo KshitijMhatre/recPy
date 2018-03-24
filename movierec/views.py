@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from .forms import UserForm
 import json,requests
 from .models import Ratings
-#from django.db.models import update_or_create
+from . import myconfig
 
 
 # Create your views here.
@@ -69,7 +69,7 @@ def detail(request):
             old_rating=obj.rating                 
         except Ratings.DoesNotExist:
             pass        
-        rest_api ='https://www.omdbapi.com/?apikey=feaa306&i='            
+        rest_api ='https://www.omdbapi.com/?apikey='+myconfig.mov_key+'&i='            
         result = requests.get(rest_api+mov_id+'&plot=full')
         data = result.json()        
                 
@@ -105,7 +105,7 @@ def search_movies(request):
     if request.method== "POST":
         query = request.POST.get("q")
         if query:
-            rest_api ='https://www.omdbapi.com/?apikey=feaa306&s='            
+            rest_api ='https://www.omdbapi.com/?apikey='+myconfig.mov_key+'&s='            
             result = requests.get(rest_api+query)
             data = result.json()
 
@@ -117,7 +117,7 @@ def search_movies(request):
 from recombee_api_client.api_client import RecombeeClient
 from recombee_api_client.api_requests import *
 
-client = RecombeeClient('irecommend','hYlCROCKOH72tcU5Wi72Khd0oILLh84q246kRIf0wlB4UsrQVnYCyWmBJOxk8huj')
+client = RecombeeClient(myconfig.mov_db,myconfig.token)
 
 
 def recommend_movies(request):
@@ -126,7 +126,7 @@ def recommend_movies(request):
         if uid:
             recommended= client.send(RecommendItemsToUser(uid ,5)) 
             data={"recomms":[]}
-            rest_api ='https://www.omdbapi.com/?apikey=feaa306&i='
+            rest_api ='https://www.omdbapi.com/?apikey='+myconfig.mov_key+'&i='
             for item in recommended["recomms"]:   
                 result = requests.get(rest_api+'tt'+item["id"])                       
                 data["recomms"].append(result.json())            
@@ -154,7 +154,7 @@ def related_movies(request):
         if uid:
             recommended= client.send(RecommendItemsToItem(imdb ,uid ,5)) 
             data={"related":[]}
-            rest_api ='https://www.omdbapi.com/?apikey=feaa306&i='
+            rest_api ='https://www.omdbapi.com/?apikey='+myconfig.mov_key+'&i='
             for item in recommended["recomms"]:   
                 result = requests.get(rest_api+'tt'+item["id"])                       
                 data["related"].append(result.json())            
