@@ -140,11 +140,11 @@ def rate_movies(request):
         my_imdb=request.POST.get("imdb")        
         my_rating=float(request.POST.get("rating"))        
         obj,created= Ratings.objects.update_or_create(uid=my_uid,imdb=my_imdb,defaults = {'rating':my_rating})        
-        if(created):
-            client.send(AddRating(my_uid,my_imdb,(my_rating-3)/2,cascade_create= True))
-        else:                    
+        if(created):            
+            client.send(AddRating(my_uid,my_imdb[2:],(my_rating-3)/2,cascade_create= True))
+        else:            
             client.send(DeleteRating(my_uid,my_imdb))
-            client.send(AddRating(my_uid,my_imdb,(my_rating-3)/2,cascade_create= True))
+            client.send(AddRating(my_uid,my_imdb[2:],(my_rating-3)/2,cascade_create= True))
     return render(request, 'movierec/recom_result.html')
 
 def related_movies(request):
@@ -152,7 +152,7 @@ def related_movies(request):
         uid = request.POST.get("uid")  
         imdb = request.POST.get("imdb")      
         if uid:
-            recommended= client.send(RecommendItemsToItem(imdb ,uid ,5)) 
+            recommended= client.send(RecommendItemsToItem(imdb[2:] ,uid ,5)) 
             data={"related":[]}
             rest_api ='https://www.omdbapi.com/?apikey='+myconfig.mov_key+'&i='
             for item in recommended["recomms"]:   
