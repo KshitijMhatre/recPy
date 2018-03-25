@@ -65,10 +65,11 @@
         
             <div id="search-results">
 
-            </div>
             {% block body %}
 
             {% endblock %}
+            </div>
+            
             
         </div>
     </main>
@@ -140,10 +141,11 @@
             $(document).on('submit','#searchbar',function(e){
                 e.preventDefault();
 
+                $('title').html('Search :'+$('#sample6').val());
                 $.ajax({
                     type:"POST",
                     url:"/movierec/search/",
-                    data:{
+                    data:{                        
                         'q':$('#sample6').val(),
                         'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
                     },
@@ -155,7 +157,7 @@
         });
 
         function searchSuccess(data, texStatus, jqXHR){
-            $('#search-results').html(data);
+            $('#search-results').html(data);            
         }
     
     </script>

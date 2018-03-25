@@ -143,7 +143,7 @@ def rate_movies(request):
         if(created):            
             client.send(AddRating(my_uid,my_imdb[2:],(my_rating-3)/2,cascade_create= True))
         else:            
-            client.send(DeleteRating(my_uid,my_imdb))
+            client.send(DeleteRating(my_uid,my_imdb[2:]))
             client.send(AddRating(my_uid,my_imdb[2:],(my_rating-3)/2,cascade_create= True))
     return render(request, 'movierec/recom_result.html')
 
