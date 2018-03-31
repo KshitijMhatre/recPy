@@ -1,0 +1,100 @@
+{% extends 'movierec/base.html' %}
+
+
+{% block title %} {{data.Title}} {% endblock %}
+
+{% block body %}
+
+<script>
+    
+        function rate(num){
+        
+        
+            $.ajax({
+                type:"POST",
+                url:"/movierec/rate/",
+                data:{
+                    'uid':{{user.profile.u_id}},
+                    'imdb':'{{data.imdbID}}',
+                    'rating': num,
+                    'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
+                },
+                //success:rateSuccess,
+                dataType:'html'
+            });
+        
+            console.log('rated '+num);
+    
+        };
+    
+        
+    
+    
+    </script>
+    
+
+<div class ='content-grid mdl-grid' style='margin:20px' >
+    <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">     
+        <div style="display: table-row">
+            <div style="float:left; width:'340'; margin:20px;">
+                <img src="{{data.Poster}}" height="445" width="300">
+            </div>
+            <div style="margin-left:340px; ">
+                <h2>{{data.Title}}</h2>
+                <p>{{data.Plot}}</p>
+                BoxOffice {{data.BoxOffice}}<br>
+                ratings {{data.Ratings}}<br>
+
+                your rating:{{rating}}
+                rate movie:
+                
+                <fieldset class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars" onClick='rate(5)'></label>
+                    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars" onClick='rate(4.5)'></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars" onClick='rate(4)'></label>
+                    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars" onClick='rate(3.5)'></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars" onClick='rate(3)'></label>
+                    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars" onClick='rate(2.5)'></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars" onClick='rate(2)'></label>
+                    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars" onClick='rate(1.5)'></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star" onClick='rate(1)'></label>
+                    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars" onClick='rate(0.5)'></label>
+                </fieldset>
+                    
+                <button id="relate">Show related</button>
+                <br>
+                <div id='related'>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        $('#relate').click(function(){
+        
+                
+            $.ajax({
+                type:"POST",
+                url:"/movierec/related/",
+                data:{
+                    'uid':{{user.profile.u_id}},
+                    'imdb':'{{data.imdbID}}',
+                    'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
+                },
+                success:relateSuccess,
+                dataType:'html'
+            });
+
+
+        });
+
+        function relateSuccess(data, texStatus, jqXHR){        
+            $('#related').html(data);
+        }
+</script>
+
+
+{% endblock %}
+

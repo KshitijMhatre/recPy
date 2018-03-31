@@ -1,0 +1,48 @@
+<!--make search result template using handle bars here-->
+
+<script id="result-template" type="text/x-handlebars-template">
+	{% verbatim %}
+
+	{{#each Search}}
+	<div class='mdl-cell mdl-cell--6-col'>
+		<div class='demo-card-wide mdl-card mdl-shadow--2dp' style='width: 512px;'>
+		<a href='/movierec/detail/?mov_id={{imdbID}}' style='text-decoration: none'>
+			<div class='mdl-card__title' style='color: #fff; height: 300px;background: url({{Poster}}) top / cover;'>
+				<h2 class='mdl-card__title-text'> {{Title}} </h2>
+			</div>
+		</a>
+			<div class='mdl-card__supporting-text' style='color:blue'>
+			{{Year}} Type:{{Type}} IMDB id: {{imdbID}}
+			</div>
+		</div>
+	</div>
+
+	{{/each}}
+	{% endverbatim %}
+</script>
+
+
+
+{% if result %}
+
+<script type="text/javascript">
+
+    var data= {{result|safe}}
+
+    function createHTMl(resData){
+        var rawtemplate = $('#result-template').html();
+        var compiledTemplate = Handlebars.compile(rawtemplate);
+        var generatedTemplate = compiledTemplate(resData);
+
+        $('#resultContainer').html(generatedTemplate);
+    }
+
+    createHTMl(data);
+
+</script>
+
+{% endif %}
+
+<div id= 'resultContainer' >
+
+</div>
