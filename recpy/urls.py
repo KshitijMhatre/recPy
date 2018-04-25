@@ -20,5 +20,6 @@ from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),    
     path('',include('movierec.urls')),
+    path('bookrec/',include('bookrec.urls')),
     url(r'^movierec/', include('movierec.urls')),
 ]

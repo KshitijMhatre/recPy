@@ -28,11 +28,11 @@
         <div class="mdl-layout__header-row">
         <!-- Title -->
         <span class="mdl-layout-title">
-            <a class="navbar-brand" href="{% url 'movierec:movierec' %}" style="color:#fff ; text-decoration: none">IRecommend</a>
+            <a class="navbar-brand" href="{% url 'bookrec:bookrec' %}" style="color:#fff ; text-decoration: none">IRecommend</a>
         </span>
         <nav class="mdl-navigation">
-            <!-- <a class="mdl-navigation__link" href="{% url 'movierec:movierec' %}">movies</a> -->
-            <a class="mdl-navigation__link" href="{% url 'movierec:bookrec' %}">Go to books</a>
+            <a class="mdl-navigation__link" href="{% url 'movierec:movierec' %}">Go to movies</a>
+            <!--<a class="mdl-navigation__link active" href="{% url 'movierec:bookrec' %}">books</a> -->
         </nav>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
@@ -40,7 +40,7 @@
         <nav class="mdl-navigation">
 
             <!-- Expandable Textfield -->
-            <form id='searchbar' role="search" method="POST" action="{% url 'movierec:movierec' %}">
+            <form id='searchbar' role="search" method="POST" action="{% url 'bookrec:bookrec' %}">
                 {% csrf_token %}
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                     <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
@@ -148,7 +148,7 @@
                 $('title').html('Search :'+$('#sample6').val());
                 $.ajax({
                     type:"POST",
-                    url:"/movierec/search/",
+                    url:"/bookrec/search/",
                     data:{                        
                         'q':$('#sample6').val(),
                         'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),

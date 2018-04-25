@@ -10,6 +10,7 @@ from recombee_api_client.api_requests import AddUser
 from . import myconfig
 
 client = RecombeeClient(myconfig.mov_db,myconfig.token)
+bclient = RecombeeClient(myconfig.book_db,myconfig.btoken)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -21,6 +22,10 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         prof=Profile.objects.create(user=instance)
         client.send(AddUser(prof.u_id)) 
+        try:
+            bclient.send(AddUser(prof.u_id)) 
+        except:
+            print("Using existing profile")
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

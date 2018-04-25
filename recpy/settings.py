@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'movierec.apps.MovierecConfig',
+    'bookrec.apps.BookrecConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,0 +1,42 @@
+<!--make search result template using handle bars here-->
+
+<script id="result-template" type="text/x-handlebars-template">
+	{% verbatim %}
+
+    {{#each Search}}
+    <div class='mdl-cell mdl-cell--6-col'>
+        <div clas='demo-card-wide'>
+        <a href="/bookrec/detail/?isbn_id={{itemId}}">        
+            {{Book-Title}}<br>
+        </a>
+        </div>
+    </div>
+	{{/each}}
+	{% endverbatim %}
+</script>
+
+
+
+{% if result %}
+
+<script type="text/javascript">
+
+    var data= {{result|safe}}
+
+    function createHTMl(resData){
+        var rawtemplate = $('#result-template').html();
+        var compiledTemplate = Handlebars.compile(rawtemplate);
+        var generatedTemplate = compiledTemplate(resData);
+
+        $('#resultContainer').html(generatedTemplate);
+    }
+
+    createHTMl(data);
+
+</script>
+
+{% endif %}
+
+<div id= 'resultContainer' >
+
+</div>

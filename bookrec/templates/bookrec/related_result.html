@@ -6,9 +6,9 @@
 
 	{{#each related}}
 	
-		<a href='/movierec/detail/?mov_id={{imdbID}}' style='text-decoration: none'>
+		<a href='/bookrec/detail/?isbn_id={{id}}' style='text-decoration: none'>
 			
-				<h2 class='mdl-card__title-text'> {{Title}} </h2>			
+				<h2 class='mdl-card__title-text'> {{id}} </h2>			
 		</a>			    
 	{{/each}}
 	{% endverbatim %}
@@ -22,7 +22,7 @@
 
     var data= {{result|safe}}
 
-    //console.log(data);
+    console.log(data);
 
     function createHTMl(resData){
         var rawtemplate = $('#relate-template').html();

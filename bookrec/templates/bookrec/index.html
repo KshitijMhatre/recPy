@@ -1,0 +1,36 @@
+{% extends 'bookrec/base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+<div id="recommendations">
+    <h3>Please wait fetching recommendations</h3>
+</div>
+
+<script>
+    function fun(){
+    
+        $.ajax({
+            type:"POST",
+            url:"/bookrec/recommend/",
+            data:{
+                'uid':{{user.profile.u_id}},
+                'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
+            },
+            success:recomSuccess,
+            dataType:'html'
+        });
+    
+
+    };
+
+    fun();
+
+    function recomSuccess(data, texStatus, jqXHR){
+        //console.log(data);
+        $('#recommendations').html(data);
+    }
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<!--make recomendations result template using handle bars here-->
+
+<script id="result-template" type="text/x-handlebars-template">
+	{% verbatim %}
+
+	{{#each recomms}}
+	<div class='mdl-cell mdl-cell--6-col'>
+		<div class='demo-card-wide mdl-card mdl-shadow--2dp' style='width: 512px;'>
+			<a href='/bookrec/detail/?isbn_id={{id}}' style='text-decoration: none'>
+			
+				<div class='mdl-card__title' style='color: #fff; height: 300px;background: url({{values.Image-URL-L}}) top / cover;'></div>
+					<h2 class='mdl-card__title-text'> {{id}} </h2>			
+					{{values.Book-Title}}<br>
+					{{values.Book-Author}}
+				</div>
+			</a>			   
+		</div>
+    </div>       
+
+	{{/each}}
+	{% endverbatim %}
+</script>
+
+
+{% if result %}
+
+<script type="text/javascript">
+
+    var data= {{result|safe}}
+
+    //console.log(data);
+
+    function createHTMl(resData){
+        var rawtemplate = $('#result-template').html();
+        var compiledTemplate = Handlebars.compile(rawtemplate);
+        var generatedTemplate = compiledTemplate(resData);
+
+        $('#recomContainer').html(generatedTemplate);
+    }
+
+    createHTMl(data);
+
+</script>
+
+{% endif %}
+
+<div id= 'recomContainer' >
+
+</div>
