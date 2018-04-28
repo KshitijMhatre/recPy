@@ -13,6 +13,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://use.fontawesome.com/35dfb0e796.js"></script>
         <script defer src="{% static 'movierec/js/handlebars-v4.0.11.js' %}"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
         <link rel="stylesheet" type="text/css" href="{% static 'movierec/style.css' %}"/>
 </head>
@@ -22,7 +23,6 @@
   locked at the top 
     This page is base for logged in state
 -->
-
 <div class="mdl-layout mdl-js-layout">
     <header class="mdl-layout__header mdl-layout__header--scroll">
         <div class="mdl-layout__header-row">
@@ -32,7 +32,9 @@
         </span>
         <nav class="mdl-navigation">
             <!-- <a class="mdl-navigation__link" href="{% url 'movierec:movierec' %}">movies</a> -->
-            <a class="mdl-navigation__link" href="{% url 'movierec:bookrec' %}">Go to books</a>
+            <a class="mdl-navigation__link" href="{% url 'movierec:bookrec' %}">Go to books
+                <i class="material-icons">book</i>
+            </a>
         </nav>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
@@ -53,12 +55,12 @@
                     </div>
             </form>
       
-
-            <!--profile page <a class="mdl-navigation__link" href="#">link</a> -->
-
-                    <a href="{% url 'movierec:logout_user' %}">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
-                    </a>
+            
+            <a href="{% url 'movierec:logout_user' %}"style="text-decoration:none" class="mdl-button mdl-js-button" >                        
+                <i class="material-icons">power_settings_new</i> Logout
+            </a>
+                                                
+                    
                 
         </nav>
         </div>
@@ -161,9 +163,10 @@
         });
 
         function searchSuccess(data, texStatus, jqXHR){
-            $('#search-results').html(data);            
+            $('#search-results').html(data);   
+            $('#search-results').addClass("centre-div");   
         }
     
     </script>
-        
+
 </html>

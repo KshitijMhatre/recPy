@@ -4,7 +4,7 @@
 	{% verbatim %}
 
 	{{#each Search}}
-	<div class='mdl-cell mdl-cell--6-col'>
+	<div class='mdl-cell mdl-cell--6-row'>
 		<div class='demo-card-wide mdl-card mdl-shadow--2dp' style='width: 512px;'>
 		<a href='/movierec/detail/?mov_id={{imdbID}}' style='text-decoration: none'>
 			<div class='mdl-card__title' style='color: #fff; height: 300px;background: url({{Poster}}) top / cover;'>
@@ -16,6 +16,7 @@
 			</div>
 		</div>
 	</div>
+	
 
 	{{/each}}
 	{% endverbatim %}
@@ -43,6 +44,6 @@
 
 {% endif %}
 
-<div id= 'resultContainer' >
+<div id= 'resultContainer'>
 
 </div>

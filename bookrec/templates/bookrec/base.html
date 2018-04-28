@@ -13,6 +13,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://use.fontawesome.com/35dfb0e796.js"></script>
         <script defer src="{% static 'movierec/js/handlebars-v4.0.11.js' %}"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
         <link rel="stylesheet" type="text/css" href="{% static 'movierec/style.css' %}"/>
 </head>
@@ -31,7 +32,9 @@
             <a class="navbar-brand" href="{% url 'bookrec:bookrec' %}" style="color:#fff ; text-decoration: none">IRecommend</a>
         </span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="{% url 'movierec:movierec' %}">Go to movies</a>
+            <a class="mdl-navigation__link" href="{% url 'movierec:movierec' %}">Go to movies
+                <i class="material-icons">movie</i>
+            </a>
             <!--<a class="mdl-navigation__link active" href="{% url 'movierec:bookrec' %}">books</a> -->
         </nav>
         <!-- Add spacer, to align navigation to the right -->
@@ -55,10 +58,9 @@
       
 
             <!--profile page <a class="mdl-navigation__link" href="#">link</a> -->
-
-                    <a href="{% url 'movierec:logout_user' %}">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
-                    </a>
+            <a href="{% url 'movierec:logout_user' %}"style="text-decoration:none" class="mdl-button mdl-js-button" >                        
+                <i class="material-icons">power_settings_new</i> Logout
+            </a>
                 
         </nav>
         </div>
@@ -67,7 +69,7 @@
     <main class="mdl-layout__content">
         <div class="page-content"><!-- Your content goes here -->
         
-            <div id="search-results">
+            <div id="search-results" >
 
             {% block body %}
 
@@ -162,6 +164,7 @@
 
         function searchSuccess(data, texStatus, jqXHR){
             $('#search-results').html(data);            
+            //$('#search-results').addClass("centre-div");            
         }
     
     </script>
