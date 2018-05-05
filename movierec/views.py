@@ -128,7 +128,8 @@ def recommend_movies(request):
             data={"recomms":[]}
             rest_api ='https://www.omdbapi.com/?apikey='+myconfig.mov_key+'&i='
             for item in recommended["recomms"]:   
-                result = requests.get(rest_api+'tt'+item["id"])                       
+                fid = item["id"].replace('tt','')
+                result = requests.get(rest_api+'tt'+fid)                       
                 data["recomms"].append(result.json())            
             return render(request, 'movierec/recom_result.html', {'result':data })
         else:
