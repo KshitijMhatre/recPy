@@ -23,7 +23,7 @@
   locked at the top 
     This page is base for logged in state
 -->
-<div class="mdl-layout mdl-js-layout">
+<div class="mdl-layout mdl-js-layout ">
     <header class="mdl-layout__header mdl-layout__header--scroll">
         <div class="mdl-layout__header-row">
         <!-- Title -->
@@ -59,13 +59,51 @@
             <a href="{% url 'movierec:logout_user' %}"style="text-decoration:none" class="mdl-button mdl-js-button" >                        
                 <i class="material-icons">power_settings_new</i> Logout
             </a>
-                                                
-                    
+ 
                 
         </nav>
         </div>
+
+
     </header>
+
+
+    <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+<span class="mdl-layout-title">
+            <a class="navbar-brand" href="{% url 'movierec:movierec' %}" style="color:#000 ; text-decoration: none">IRecommend</a>
+        </span>
+        <nav class="mdl-navigation">
+                
+                <a class="mdl-navigation__link" href="{% url 'movierec:bookrec' %}">Go to books
+                    <i class="material-icons">book</i>
+                </a>
+                
+                    <form id='searchbar-small' role="search" method="POST" action="{% url 'movierec:movierec' %}">
+                    {% csrf_token %}
+                        <div class="mdl-textfield mdl-js-textfield ">
+                            <ul>
+                                <label class="mdl-button mdl-js-button mdl-button--icon" for="small-search">
+                                    <i class="material-icons">search</i>
+                                </label>
+                            </ul>
+                            <ul>
+                                <div class="mdl-textfield">
+                                    <input class="mdl-textfield__input" type="text" id="small-search" name="q" value="{{ request.POST.q }}">                        
+                                    <label class="mdl-textfield__label" for="sample-expandable">Search Movies</label>
+                                </div>
+                            </ul>
+                        </div>
+                    </form>
+                
+                <a href="{% url 'movierec:logout_user' %}"style="text-decoration:none" class="mdl-button mdl-js-button" >                        
+                    <i class="material-icons">power_settings_new</i> Logout
+                </a>
+                
+
+        </nav>
+      </div>
     
+
     <main class="mdl-layout__content">
         <div class="page-content"><!-- Your content goes here -->
         
@@ -153,6 +191,24 @@
                     url:"/movierec/search/",
                     data:{                        
                         'q':$('#sample6').val(),
+                        'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
+                    },
+                    success:searchSuccess,
+                    dataType:'html'
+                });
+            });
+
+        });
+        $(function(){
+            $(document).on('submit','#searchbar-small',function(e){
+                e.preventDefault();
+
+                $('title').html('Search :'+$('#small-search').val());
+                $.ajax({
+                    type:"POST",
+                    url:"/movierec/search/",
+                    data:{                        
+                        'q':$('#small-search').val(),
                         'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
                     },
                     success:searchSuccess,

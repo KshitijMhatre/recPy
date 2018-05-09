@@ -65,13 +65,54 @@
         </nav>
         </div>
     </header>
+
+
+    <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+        <span class="mdl-layout-title">
+            <a class="navbar-brand" href="{% url 'bookrec:bookrec' %}" style="color:#000 ; text-decoration: none">IRecommend</a>
+        </span>
+    
+        <nav class="mdl-navigation">                
+            <a class="mdl-navigation__link" href="{% url 'movierec:movierec' %}">Go to movies
+                <i class="material-icons">book</i>
+            </a>
+                
+            <form id='searchbar-small' role="search" method="POST" action="{% url 'bookrec:bookrec' %}">
+                    {% csrf_token %}
+                        <div class="mdl-textfield mdl-js-textfield ">
+                            <ul>
+                            <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6-small">
+                                <i class="material-icons">search</i>
+                            </label>
+                            </ul>
+                            <ul>
+                            <div class="mdl-textfield">
+                                <input class="mdl-textfield__input" type="text" id="sample6-small" name="q" value="{{ request.POST.q }}">
+                                <label class="mdl-textfield__label" for="sample-expandable">Search Books</label>
+                            </div>
+                            </ul>
+                        </div>
+            </form>
+                
+            <a href="{% url 'movierec:logout_user' %}"style="text-decoration:none" class="mdl-button mdl-js-button" >                        
+                <i class="material-icons">power_settings_new</i> Logout
+            </a>
+                
+
+        </nav>
+        </div>
+        
+
+
+
+
     
     <main class="mdl-layout__content">
         <div class="page-content"><!-- Your content goes here -->
         
-            <div id="search-results" >
-
+            <div id="search-results" >                            
             {% block body %}
+                
 
             {% endblock %}
             </div>
@@ -153,6 +194,25 @@
                     url:"/bookrec/search/",
                     data:{                        
                         'q':$('#sample6').val(),
+                        'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
+                    },
+                    success:searchSuccess,
+                    dataType:'html'
+                });
+            });
+
+        });
+
+        $(function(){
+            $(document).on('submit','#searchbar-small',function(e){
+                e.preventDefault();
+
+                $('title').html('Search :'+$('#sample6-small').val());
+                $.ajax({
+                    type:"POST",
+                    url:"/bookrec/search/",
+                    data:{                        
+                        'q':$('#sample6-small').val(),
                         'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val(),
                     },
                     success:searchSuccess,
