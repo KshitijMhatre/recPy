@@ -20,9 +20,12 @@ class Profile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        prof=Profile.objects.create(user=instance)
-        client.send(AddUser(prof.u_id)) 
+        prof=Profile.objects.create(user=instance)        
         try:
+            client.send(AddUser(prof.u_id)) 
+        except:
+            pass
+        try:            
             bclient.send(AddUser(prof.u_id)) 
         except:
             print("Using existing profile")
