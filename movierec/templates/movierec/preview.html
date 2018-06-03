@@ -10,31 +10,31 @@
     </style>
     {% endblock %}
 
-    <div class="container" >
+    <div class="container" style="border: floralwhite; border-style: solid; " >
 
-        <div >
+        <div style="margin: 30px;" >
             <H3 style="font-family: 'Inter UI',sans-serif ; color:white;">
                 Personalised books and movie recommendations 
             </H3>            
         
             <div >
-                <H3 style="font-family: 'Amatic SC',cursive ; color:white;">
-                        Get started
-                </H3>            
+                    <H3 style="font-family: 'Amatic SC',cursive ; color:white;">
+                            Get started
+                    </H3>            
+                    
+                    <!-- Primary-colored flat button -->                
+                    <a class="mdl-button mdl-js-button" style="color:chocolate; font-size: 20px;" href="{% url 'movierec:login_user' %}">                        
+                            Sign In
+                    </a>
+                    
+                                <!-- Primary-colored flat button -->
+                    <a class="mdl-button mdl-js-button" style="color:coral; font-size: 20px; " href="{% url 'movierec:register' %}">
+                        Sign Up
+                    </a>
+    
+                </div>
                 
-                <!-- Primary-colored flat button -->                
-                <a class="mdl-button mdl-js-button mdl-button--primary" href="{% url 'movierec:login_user' %}">                        
-                        Sign In
-                </a>
-                
-                            <!-- Primary-colored flat button -->
-                <a class="mdl-button mdl-js-button mdl-button--accent" href="{% url 'movierec:register' %}">
-                    Sign Up
-                </a>
-
-        </div>
-            
-
+    
         </div>   
         
     </div>
