@@ -1,7 +1,13 @@
 body{
     background: url("images/woodbg.jpg") no-repeat #0D0D0D;
-    
-}
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    }
+
+main {
+    flex: 1 0 auto;
+    }
 
 .mdl-card {
     display: flex;
@@ -98,3 +104,35 @@ fieldset, label { margin: 0; padding: 0;}
 }
 
 @import url('https://rsms.me/inter/inter-ui.css');
+
+.page {
+    
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: absolute;
+    place-content: center;
+    width: 100%;
+  }
+  @media (max-width: 767px) {
+    .page {
+      height: auto;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+.container {
+    display: flex;
+    height: 320px;
+    margin: 0 auto;
+    width: 640px;
+    place-content: center;
+  }
+  @media (max-width: 767px) {
+    .container {
+      flex-direction: column;
+      height: 630px;
+      width: 320px;
+    }
+  }

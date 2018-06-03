@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>lOG IN</title>
+    <title>Log In</title>
+
+    
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'movierec/formstyles.css' %}"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
 </head>
 
 <body>
-        <div class="page">
+      
+      <div class="page">            
                 <div class="container">
                   <div class="left">
                     <div class="login">Login</div>
                     <div class="eula">By logging in you agree to the ridiculously long terms that you didn't bother to read<br>
                         <br>
                         <a href="{% url 'movierec:register' %}">Register</a>
+                        <a style="margin: 20px;" href="{% url 'movierec:movierec' %}">Home</a>
                     </div>
                     
                   </div>
