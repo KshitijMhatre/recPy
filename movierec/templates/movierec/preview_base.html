@@ -6,6 +6,10 @@
         <title>{% block title %}IRecommend{% endblock %}</title>
         {% load staticfiles %}
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet"> 
+
+        
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet"> 
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -28,25 +32,25 @@
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation -->
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="{% url 'movierec:login_user' %}">Log In</a>
-            <a class="mdl-navigation__link" href="{% url 'movierec:register' %}">Sign Up</a>            
+            <a class="mdl-button mdl-js-button " href="{% url 'movierec:login_user' %}" style="color: white;">Sign In</a>            
+            <a class="mdl-button mdl-js-button " href="{% url 'movierec:register' %}" style="color: white;" >Sign Up</a>            
         </nav>
         </div>
     </header>
     
-    <main class="mdl-layout__content">
-        <div class="page-content"><!-- Your content goes here -->
+    <main class="mdl-layout__content backg">
+        
         
             {% block body %}
 
             {% endblock %}
             
-        </div>
+        
     </main>
 
 
 
-    <footer class="mdl-mega-footer">
+    <!-- <footer class="mdl-mega-footer">
         <div class="mdl-mega-footer__middle-section">
     
         <div class="mdl-mega-footer__drop-down-section">
@@ -102,8 +106,12 @@
         </ul>
         </div>
     
-    </footer>
+    </footer> -->
 
     </div>
         
 </html>
+
+
+
+<!-- marked to delete -->

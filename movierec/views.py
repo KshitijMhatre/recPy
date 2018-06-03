@@ -42,10 +42,12 @@ def register(request):
         if user is not None:
             if user.is_active:
                 login(request, user)                
-                return render(request, 'movierec/index.html', {})
+                return render(request, 'movierec/index.html', {})        
+    
     context = {
         "form": form,
     }
+    
     return render(request, 'movierec/register.html', context)
 
 def logout_user(request):

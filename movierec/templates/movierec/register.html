@@ -1,34 +1,41 @@
-{% extends 'movierec/preview_base.html' %}
-{% block title %}Log In{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lOG IN</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'movierec/formstyles.css' %}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+</head>
 
-{% block body %}
-<div class="container-fluid">
+<body>
+        <div class="page">
+                <div class="container">
+                  <div class="left">
+                    <div class="login">Register</div>
+                    <div class="eula">By signing up you agree to the ridiculously long terms that you didn't bother to read<br>
+                        <br>
+                        <a href="{% url 'movierec:login_user' %}">Log in</a>
+                    </div>
+                    
+                  </div>
+                  <div class="right">
+                        
+                    <div class="form" >                            
+                            <form action="{% url 'movierec:register'%}" method="post" enctype="multipart/form-data">                                
+                                {% csrf_token %}
+                                {% include 'movierec/form_template.html' %}                                
+                                <input type="submit" id="submit" style="margin-top: 20px;" value="Submit">
 
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h3>Register for an Account</h3>
-                    {% if error_message %}
-                        <p><strong>{{ error_message }}</strong></p>
-                    {% endif %}
-                    <form class="form-horizontal" role="form" action="" method="post" > <!--enctype="multipart/form-data"-->
-                        {% csrf_token %}
-                        {% include 'movierec/form_template.html' %}
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
-                        </div>
-                    </form>
+                            </form>
+                            
+                    </div>
+                        
+                  </div>
                 </div>
-                <div class="panel-footer">
-                    Already have an account? <a href="{% url 'movierec:login_user' %}">Click here</a> to log in.
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-{% endblock %}
+              </div>
+                            
+</body>
+</html>

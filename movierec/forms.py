@@ -8,7 +8,12 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password']                
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'mdl-textfield__input','id':'id_username'}),
+            'email': forms.TextInput(attrs={'class': 'mdl-textfield__input','id':'id_email','type':'email' }),
+            'password': forms.TextInput(attrs={'class': 'mdl-textfield__input','id':'id_password'}),
+        }
 
 
 class ProfileForm(forms.ModelForm):

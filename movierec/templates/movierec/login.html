@@ -1,54 +1,68 @@
-{% extends 'movierec/preview_base.html' %}
-{% block title %}Log In{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lOG IN</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'movierec/formstyles.css' %}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+</head>
 
-{% block body %}
-<div class ='content-grid mdl-grid' style='margin:10px' >
-
-        <div class='mdl-cell mdl-cell--6-col'>        
-            <div class='pan-wide mdl-card mdl-shadow--2dp'>
-    
-                    <h3>Log In</h3>
-                    {% if error_message %}
-                        <p><strong>{{ error_message }}</strong></p>
-                    {% endif %}
-    
-                    <form action="{% url 'movierec:login_user'%}" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label class="mdl-cell mdl-cell--3-col" for="id_username">
-                                Username:
-                            </label>
-                            <div class="mdl-cell mdl-cell--10-col">
-                                <input id="id_username" maxlength="30" name="username" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="mdl-cell mdl-cell--3-col" for="id_password">
-                                Password:
-                            </label>
-                            <div class="mdl-cell mdl-cell--10-col">
-                                <input id="id_password" maxlength="30" name="password" type="password">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="mdl-cell mdl-cell--10-col">
-                                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Submit</button>
-                            </div>
-                        </div>
-    
-    
-                    </form>
-                    <div class="mdl-card__supporting-text">
-                            Don't have an account? <a href="{% url 'movierec:register' %}">Click here</a> to register.
+<body>
+        <div class="page">
+                <div class="container">
+                  <div class="left">
+                    <div class="login">Login</div>
+                    <div class="eula">By logging in you agree to the ridiculously long terms that you didn't bother to read<br>
+                        <br>
+                        <a href="{% url 'movierec:register' %}">Register</a>
                     </div>
-    
-    
-            </div>
-        </div>
-    
-    </div>
-    
-                
-                    <!--/div-->
+                    
+                  </div>
+                  <div class="right">
+                    <svg viewBox="0 0 320 300">
+                      <defs>
+                        <linearGradient
+                                        inkscape:collect="always"
+                                        id="linearGradient"
+                                        x1="13"
+                                        y1="193.49992"
+                                        x2="307"
+                                        y2="193.49992"
+                                        gradientUnits="userSpaceOnUse">
+                          <stop
+                                style="stop-color:#ff00ff;"
+                                offset="0"
+                                id="stop876" />
+                          <stop
+                                style="stop-color:#ff0000;"
+                                offset="1"
+                                id="stop878" />
+                        </linearGradient>
+                      </defs>
+                      <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+                    </svg>
+                            
+                    <div class="form" >                            
+                            <form action="{% url 'movierec:login_user'%}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <label for="email">Username</label>
+                                <input type="text" id="email" name="username" required>
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required>
+                                <input type="submit" id="submit" value="Submit">
 
-{% endblock %}
+                            </form>
+                            {% if error_message %}
+                            <p><strong>{{ error_message }}</strong></p>
+                            {% endif %}                            
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <script src="{% static 'movierec/js/form.js' %}"></script>
+</body>
+</html>

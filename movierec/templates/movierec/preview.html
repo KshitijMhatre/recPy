@@ -1,81 +1,43 @@
 {% extends 'movierec/preview_base.html' %}
 {% block title %}Log In{% endblock %}
 
+{% load staticfiles %}
 {% block body %}        
-        <div class="trending mdl-grid ">
 
-            <!-- Square card -->
-            <style>
-                .demo-card-square.mdl-card {
-                width: 320px;
-                height: 320px;
-                }
-                .demo-card-square > .mdl-card__title {
-                color: #fff;
-                background:
-                    url('#') bottom right 15% no-repeat #46B6AC;
-                }
-            </style>        
+    {% block extrastyle %}
+    <style type="text/css">
+    body {background:url({% static 'movierec/images/welcomebg.jpg'%});}
+    </style>
+    {% endblock %}
+
+    <div class="mdl-layout__content" >
+
+        <div class="centre-stuff" style="position: fixed;">
+            <H3 style="font-family: 'Inter UI',sans-serif ; color:white;">
+                Personalised books and movie recommendations 
+            </H3>            
         
-            <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title mdl-card--expand">
-                        <h2 class="mdl-card__title-text">Update</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Aenan convallis.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        View Updates
-                        </a>
-                    </div>
-                    </div>     
+                        
+        </div>   
+        
             
-            <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title mdl-card--expand">
-                        <h2 class="mdl-card__title-text">Update</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Aenan convallis.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        View Updates
-                        </a>
-                    </div>
-                    </div>
+        <div class="centre-stuff" style="position:fixed; margin: 5% 30% 0 0" >
+                <H3 style="font-family: 'Amatic SC',cursive ; color:white;">
+                        Get started
+                </H3>            
+                
+                <!-- Primary-colored flat button -->                
+                <a class="mdl-button mdl-js-button mdl-button--primary" href="{% url 'movierec:login_user' %}">                        
+                        Sign In
+                </a>
+                
+                            <!-- Primary-colored flat button -->
+                <a class="mdl-button mdl-js-button mdl-button--accent" href="{% url 'movierec:register' %}">
+                    Sign Up
+                </a>
 
-            <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title mdl-card--expand">
-                        <h2 class="mdl-card__title-text">Update</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Aenan convallis.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        View Updates
-                        </a>
-                    </div>
-                    </div>
+        </div>
 
-            <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title mdl-card--expand">
-                        <h2 class="mdl-card__title-text">Update</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Aenan convallis.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        View Updates
-                        </a>
-                    </div>
-                    </div>
-                            
-        </div>        
+        
+    </div>
 {% endblock %}
