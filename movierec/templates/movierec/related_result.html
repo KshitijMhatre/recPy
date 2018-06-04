@@ -6,9 +6,9 @@
 
 	{{#each related}}
 	
-		<a href='/movierec/detail/?mov_id={{imdbID}}' style='text-decoration: none'>
+		<a href='/movierec/detail/?mov_id={{imdbID}}' style='text-decoration: none;color: black;'>
 			
-				<h2 class='mdl-card__title-text'> {{Title}} </h2>			
+				<h3 class='mdl-card__title-text'> {{Title}} ({{Year}})</h3>			
 		</a>			    
 	{{/each}}
 	{% endverbatim %}
@@ -22,8 +22,8 @@
 
     var data= {{result|safe}}
 
-    //console.log(data);
-
+    console.log(data);
+    
     function createHTMl(resData){
         var rawtemplate = $('#relate-template').html();
         var compiledTemplate = Handlebars.compile(rawtemplate);

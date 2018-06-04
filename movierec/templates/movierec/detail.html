@@ -3,6 +3,7 @@
 
 {% block title %} {{data.Title}} {% endblock %}
 
+{% load staticfiles %}
 {% block body %}
 
 <script>
@@ -31,7 +32,7 @@
     
     
     </script>
-    
+        
 
 <div class ='content-grid mdl-grid' style='margin:20px' >
     <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">     
@@ -40,14 +41,32 @@
                 <img src="{{data.Poster}}" height="445" width="300">
             </div>
             <div style="margin-left:340px; ">
-                <h2>{{data.Title}}</h2>
+                <h2 style="font-family: 'Amatic SC', cursive;">{{data.Title}}</h2>
+                <h6>A {{data.Production}} production ({{data.Year}}) rated: {{data.Rated}} </h6>                
                 <p>{{data.Plot}}</p>
-                BoxOffice {{data.BoxOffice}}<br>
-                ratings {{data.Ratings}}<br>
+                <p><i>{{data.Genre}} </i></p>
+                <p>
+                    <strong>
+                    Country : {{data.Country}} <br>
+                    Box Office : {{data.BoxOffice}}<br>
+                    Ratings : 
+                    </strong>     
+                        {% for source in data.Ratings %}
 
-                your rating:{{rating}}
-                rate movie:
-                
+                            {% with source.Source|slugify as s%}
+                                {% with 'movierec/images/'|add:s|add:'.png' as s %}
+                                    <img style="margin: 20px 0px 20px 20px; " src="{% static s %} " title="{{source.Source}}" alt="{{source.Source}}">  : {{source.Value}}
+                                {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                    
+                      <br>     
+                    {% if rating > 0 %}
+                    Previously rated {{rating}} by you. <br>
+                    {% endif %}
+                    <strong> Rate movie:</strong>
+                    
+                </p>
                 <fieldset class="rating">
                     <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars" onClick='rate(5)'></label>
                     <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars" onClick='rate(4.5)'></label>
@@ -60,15 +79,20 @@
                     <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star" onClick='rate(1)'></label>
                     <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars" onClick='rate(0.5)'></label>
                 </fieldset>
-                    
-                <button id="relate">Show related</button>
-                <br>
-                <div id='related'>
 
-                </div>
+                <p>
+
+                <button class="mdl-button" style="margin-left: 20px;" id="relate">Show related</button>
+                <br>
+                
+                </p>   
             </div>
         </div>
     </div>
+
+    <div class="centre-div" id='related'>
+
+        </div>
 </div>
 
 <script>

@@ -31,12 +31,18 @@
                 <img src="{{res.ImageURLL}}" height="445" width="300">
             </div>
             <div style="margin-left:340px; ">
-                <h2>{{res.BookTitle}}</h2>
-                publisher {{res.Publisher}}
-                ISBN: <h3 id="isbn">{{res.ISBN}}</h3>
+                <h2 style="font-family: 'Amatic SC', cursive;">{{res.BookTitle}}</h2>
                 
-                Rate Book:
+                <h6>A {{res.Publisher}} publication ({{res.YearOfPublication}}) </h6>                
                 
+                
+                <h6 style="white-space: nowrap;">ISBN: 
+                    <i id="isbn" style="white-space: nowrap;">{{res.ISBN}}</i>
+                </h6>
+                
+                <strong>Rate Book:</strong>
+                
+                <p>
                 <fieldset class="rating">
                     <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars" onClick='rate(10)'></label>
                     <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars" onClick='rate(9)'></label>
@@ -49,20 +55,24 @@
                     <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star" onClick='rate(2)'></label>
                     <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars" onClick='rate(1)'></label>
                 </fieldset>
+                </p>
                     
-                <button id="relate">Show related</button>
+                
+                <button class="mdl-button" style="margin-left: 20px;" id="relate">Show related</button>
                 <br>
-                <div id='related'>
-
-                </div>
+                
             </div>
         </div>
     </div>
+        <div id='related' class="centre-div">
+
+        </div>
 </div>
 
 <script>
         $('#relate').click(function(){        
-            console.log($('#isbn').text());
+            //console.log($('#isbn').text());
+            
             $.ajax({
                 type:"POST",
                 url:"/bookrec/related/",

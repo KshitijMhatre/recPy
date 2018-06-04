@@ -9,6 +9,10 @@ main {
     flex: 1 0 auto;
     }
 
+p{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .mdl-card {
     display: flex;
     flex-direction: column;

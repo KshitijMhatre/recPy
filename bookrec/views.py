@@ -96,7 +96,7 @@ def related_books(request):
         uid = request.POST.get("uid")  
         isbn = request.POST.get("isbn")      
         if uid:
-            recommended= client.send(RecommendItemsToItem(isbn ,uid ,5))                         
+            recommended= client.send(RecommendItemsToItem(isbn ,uid ,5,return_properties=True))                         
             data = {"related":[]}
             for item in recommended["recomms"]:                   
                 data["related"].append(item)            
